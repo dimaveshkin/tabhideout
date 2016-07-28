@@ -1,16 +1,15 @@
 {
+  "manifest_version": 2,
   "name": "TabHideout",
-  "version": "0.1",
+  "version": "0.0.1",
   "description": "Allows user to hide tabs.",
-  "icons": { "128": "icon_128.png" },
   "background": {
-    "persistent": false,
+    "persistent": true,
     "scripts": ["bg.js"]
   },
   "permissions": ["http://*.google.com/", "https://*.google.com/"],
   "browser_action": {
-    "default_title": "",
-    "default_icon": "icon_19.png",
+    "default_title": "TabHideout",
     "default_popup": "popup.html"
   }
 }
