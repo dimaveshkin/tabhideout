@@ -1,7 +1,7 @@
 var gulp = require("gulp");
 var webpack = require("webpack-stream");
 var path = require("path");
-var dirs = ["popup", "bg"];
+var dirs = ["popup", "bg", "content"];
 
 gulp.task("build", function () {
     dirs.forEach(function (dir) {

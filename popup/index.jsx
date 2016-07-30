@@ -5,11 +5,14 @@ import { Provider } from "react-redux";
 import { Store } from "react-chrome-redux";
 
 const store = new Store({
-    portName: 'tabhideout'
+    portName: 'TAB'
 });
 
-render(
-    <Provider store={store}>
-        <App/>
-    </Provider>
-    , document.getElementById("app"));
+const unsubscribe = store.subscribe(() => {
+    unsubscribe(); // make sure to only fire once
+    render(
+        <Provider store={store}>
+            <App/>
+        </Provider>
+        , document.getElementById('app'));
+});

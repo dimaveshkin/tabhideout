@@ -3,6 +3,107 @@
 <head>
     <meta charset="UTF-8">
     <title>TabHideout</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        .tab-table {
+            border: none;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .tab-row td {
+            vertical-align: middle;
+        }
+
+        .favicon {
+            width: 20px;
+        }
+
+        .favicon img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .title {
+            font-size: 12px;
+            padding: 5px;
+        }
+
+        .title:hover {
+            color: lightskyblue;
+        }
+
+        .close-icon {
+            width: 25px;
+        }
+
+        .close-icon button:hover {
+            color: red;
+        }
+
+        .tab-row {
+            cursor: pointer;
+        }
+
+        .deleting-row .close-icon button:hover {
+            color: #0d0;
+        }
+
+        .close-icon button {
+            width: 100%;
+            height: 100%;
+            font-size:16px;
+            text-align: center;
+            background: none;
+            border: none;
+            outline: none;
+        }
+
+        .deleting-row .title {
+            text-decoration: line-through;
+        }
+
+        .deleting-row td {
+            background: #eee;
+        }
+
+        .tab-description {
+
+        }
+
+        .filter {
+            padding: 3px;
+            width: 100%;
+        }
+
+        .filter-form {
+            margin-bottom: 5px;
+        }
+
+        .tabs-list {
+            list-style: none;
+        }
+
+        .tabs-list li + li {
+            margin-top: 5px;
+        }
+
+        .app-wrapper {
+            min-width: 300px;
+            padding: 5px;
+        }
+
+        .app-header {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+    </style>
 </head>
 <body>
 <div id="app"></div>

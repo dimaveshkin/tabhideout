@@ -1,11 +1,7 @@
-export default function (state, action) {
+export default function (state = 0, action) {
     switch (action.type) {
         case "CLICK":
-            Object.assign({}, state, {
-                clicks: state.clicks + 1
-            });
-
-            break;
+            return state + 1;
         default:
             return state;
     }

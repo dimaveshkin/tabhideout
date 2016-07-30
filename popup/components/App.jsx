@@ -1,34 +1,33 @@
 import React, { Component } from "react";
-import { connect } from "react-redux";
+import SearchBox from "./SearchBox";
+import Tabs from "./Tabs";
 
 class App extends Component {
     constructor(props) {
         super(props);
+        
+        this.state = {
+            filter: ''
+        };
+
+        this.onFilterChange = this.onFilterChange.bind(this);
     }
 
-    componentDidMount() {
-        const self = this;
-
-        document.addEventListener("click", () => {
-            self.props.dispatch({
-                type: "CLICK",
-                payload: {}
-            });
+    onFilterChange(event) {
+        this.setState({
+            filter: event.target.value
         });
     }
 
     render() {
         return (
-            <div>Clicks: {this.props.clicks}</div>
+            <div className="app-wrapper">
+                <h1 className="app-header">TABHIDEOUT (ALPHA 0.0.1)</h1>
+                <SearchBox filter={this.state.filter} onFilterChange={this.onFilterChange}/>
+                <Tabs filter={this.state.filter}/>
+            </div>
         );
     }
 }
 
-function mapStateToProps(state) {
-    console.log(state);
-    return {
-        clicks: state.clicks
-    }
-}
-
-export default connect(mapStateToProps)(App);
+export default App;

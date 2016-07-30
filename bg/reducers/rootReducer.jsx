@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import clickReducer from "./clickReducer";
+import tabs from "./tabsReducer";
 
 export default combineReducers({
-    clickReducer
+    tabs
 });
