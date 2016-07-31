@@ -20,6 +20,17 @@ wrapStore(store, {
 });
 
 chrome.runtime.onInstalled.addListener(function() {
+    store.subscribe(function () {
+        let state = store.getState();
+        let text = "";
+
+        if (state.tabs.length) {
+            text = state.tabs.length.toString();
+        }
+
+        chrome.browserAction.setBadgeText({text});
+    });
+
     ctxPageId = chrome.contextMenus.create({
         title: "Hide this page to TabHideOut!",
         contexts: ["page"]
