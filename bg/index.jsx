@@ -20,16 +20,7 @@ wrapStore(store, {
 });
 
 chrome.runtime.onInstalled.addListener(function() {
-    store.subscribe(function () {
-        let state = store.getState();
-        let text = "";
-
-        if (state.tabs.length) {
-            text = state.tabs.length.toString();
-        }
-
-        chrome.browserAction.setBadgeText({text});
-    });
+    store.subscribe(onStoreChange);
 
     ctxPageId = chrome.contextMenus.create({
         title: "Hide this page to TabHideOut!",
@@ -41,40 +32,54 @@ chrome.runtime.onInstalled.addListener(function() {
         contexts: ["link"]
     });
 
-    chrome.contextMenus.onClicked.addListener(function (info, tab) {
-        if(info.menuItemId === ctxLinkId) {
-            createTabFromLink(info.linkUrl).then(link => {
-                store.dispatch({
-                    type: "LINK_ADD",
-                    link
-                })
-            })
-        }
+    chrome.contextMenus.onClicked.addListener(handleContextMenuClick);
 
-        if (info.menuItemId === ctxPageId) {
-            store.dispatch({
-                type: "TAB_ADD",
-                tab
-            })
-        }
-    });
-
-    chrome.tabs.query({}, function (tabs) {
-            for (var i = 0; i < tabs.length; i++) {
-                if (tabs[i].url.indexOf("chrome://") === -1)  {
-                    chrome.tabs.executeScript(tabs[i].id, {file: "content.js"});
-                }
-            }
-        }
-    );
+    chrome.tabs.query({}, injectContentScripts);
 });
+
+function onStoreChange() {
+    let state = store.getState();
+    let text = "";
+
+    if (state.tabs.length) {
+        text = state.tabs.length.toString();
+    }
+
+    chrome.browserAction.setBadgeText({text});
+}
+
+function handleContextMenuClick(info, tab) {
+    if(info.menuItemId === ctxLinkId) {
+        createTabFromLink(info.linkUrl).then(link => {
+            store.dispatch({
+                type: "LINK_ADD",
+                link
+            })
+        })
+    }
+
+    if (info.menuItemId === ctxPageId) {
+        store.dispatch({
+            type: "TAB_ADD",
+            tab
+        })
+    }
+}
+
+function injectContentScripts(tabs) {
+    for (var i = 0; i < tabs.length; i++) {
+        if (tabs[i].url.indexOf("chrome://") === -1)  {
+            chrome.tabs.executeScript(tabs[i].id, {file: "content.js"});
+        }
+    }
+}
 
 function createTabFromLink(url) {
     let GOOGLE_FAVICON_SERVICE = "https://www.google.com/s2/favicons?domain=";
     let def = $.Deferred();
 
     $.get(url).then(function(response){
-        let titleRegex = /<\s*title.*>(.*)<.*\/\s*title\s*>/;
+        let titleRegex = /<\s*?title.*?>(.*?)<.*?\/\s*?title\s*?>/;
         let favicon = GOOGLE_FAVICON_SERVICE + url;
         let title;
 
@@ -82,10 +87,6 @@ function createTabFromLink(url) {
             let tmp;
             tmp = titleRegex.exec(response);
             title = tmp && tmp[1];
-        }
-
-        if (!title) {
-            title = url;
         }
 
         def.resolve({

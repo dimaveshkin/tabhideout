@@ -49,7 +49,13 @@ class Tab extends Component {
         let tab = this.props.tab;
         let hasDetails = !!tab.desc;
         let hostName = getUrlObject(tab.url).hostname;
-        let titleText = `${tab.title} (${hostName})`;
+        let titleText;
+
+        if (tab.title) {
+            titleText = `${tab.title} (${hostName})`;
+        } else {
+            titleText = tab.url;
+        }
 
         return (
             <li>
@@ -62,8 +68,11 @@ class Tab extends Component {
                                 </td>
                             }
                             <td className="title">
-                                <span onClick={this.openTab} title={titleText}>{tab.title}
-                                    <span className="hostname"> ({hostName})</span>
+                                <span onClick={this.openTab} title={titleText}>
+                                    {tab.title ?
+                                        <span>{tab.title}<span className="hostname"> ({hostName})</span></span> :
+                                        <span>{tab.url}</span>
+                                    }
                                 </span>
                             </td>
                             { hasDetails &&

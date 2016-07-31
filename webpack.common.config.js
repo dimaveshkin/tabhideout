@@ -1,7 +1,7 @@
 const webpack = require("webpack");
 const path = require("path");
 
-module.exports = function (options) {
+function getDefaultConfig(options) {
     return {
         context: __dirname,
         output: {
@@ -19,9 +19,26 @@ module.exports = function (options) {
         resolve: {
             extensions: ["", ".js", ".jsx"]
         },
-        // devtool: 'source-map',
         plugins: [
+            new webpack.DefinePlugin({
+                'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
+            }),
             new webpack.optimize.UglifyJsPlugin()
         ]
     };
+}
+
+
+module.exports = function (options) {
+    var resultConfig;
+
+    if(process.env.NODE_ENV === "production") {
+        resultConfig = getDefaultConfig(options);
+    } else {
+        resultConfig = Object.assign({}, getDefaultConfig(options), {
+            devtool: "source-map"
+        });
+    }
+
+    return resultConfig;
 };
