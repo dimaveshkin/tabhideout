@@ -21,12 +21,12 @@ wrapStore(store, {
 
 chrome.runtime.onInstalled.addListener(function() {
     ctxPageId = chrome.contextMenus.create({
-        title: "Save page to TabHideOut!",
+        title: "Hide this page to TabHideOut!",
         contexts: ["page"]
     });
 
     ctxLinkId = chrome.contextMenus.create({
-        title: "Save link to TabHideOut!",
+        title: "Hide linked page to TabHideOut!",
         contexts: ["link"]
     });
 

@@ -1,22 +1,7 @@
-const webpack = require("webpack");
-const path = require("path");
+const createConfig = require("../webpack.common.config");
 
-module.exports = {
-    context: __dirname,
+module.exports = createConfig({
     output: {
-        path: path.resolve(__dirname, "../build"),
         filename: "bg.js"
-    },
-    module: {
-        loaders: [
-            {
-                test: /\.jsx$/,
-                loader: "babel-loader"
-            }
-        ]
-    },
-    resolve: {
-        extensions: ["", ".js", ".jsx"]
-    },
-    devtool: 'source-map'
-};
+    }
+});

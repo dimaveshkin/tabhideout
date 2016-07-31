@@ -22,7 +22,7 @@ class App extends Component {
     render() {
         return (
             <div className="app-wrapper">
-                <h1 className="app-header">TABHIDEOUT (ALPHA 0.0.1)</h1>
+                <h1 className="app-header">TABHIDEOUT</h1>
                 <SearchBox filter={this.state.filter} onFilterChange={this.onFilterChange}/>
                 <Tabs filter={this.state.filter}/>
             </div>

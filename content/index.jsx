@@ -6,7 +6,6 @@ const store = new Store({
 
 document.addEventListener("keydown", function (e) {
     if (e.ctrlKey && e.altKey && e.which === 87) {
-        debugger;
         store.dispatch({
             type: 'TAB_ADD_CURRENT',
             id: 1

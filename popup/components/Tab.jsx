@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { parse } from "url";
 
 class Tab extends Component {
     constructor(props) {
@@ -49,7 +48,7 @@ class Tab extends Component {
     render() {
         let tab = this.props.tab;
         let hasDetails = !!tab.desc;
-        let hostName = parse(tab.url).hostname;
+        let hostName = getUrlObject(tab.url).hostname;
         let titleText = `${tab.title} (${hostName})`;
 
         return (
@@ -59,7 +58,7 @@ class Tab extends Component {
                         <tr className={this.state.isDeletePrompt ? "deleting-row tab-row" : "tab-row"}>
                             { tab.favicon &&
                                 <td className="favicon">
-                                    <img src={tab.favicon} alt/>
+                                    <img src={tab.favicon} alt={titleText}/>
                                 </td>
                             }
                             <td className="title">
@@ -90,6 +89,12 @@ class Tab extends Component {
             </li>
         );
     }
+}
+
+function getUrlObject(url) {
+    let a = document.createElement('a');
+    a.href = url;
+    return a;
 }
 
 export default Tab;
