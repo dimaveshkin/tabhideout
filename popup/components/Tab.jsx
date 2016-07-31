@@ -45,6 +45,12 @@ class Tab extends Component {
         this.props.openTab(this.props.tab.url, this.props.tab.id);
     }
 
+    componentWillReceiveProps() {
+        this.setState({
+            isDeletePrompt: false
+        });
+    }
+
     render() {
         let tab = this.props.tab;
         let hasDetails = !!tab.desc;
