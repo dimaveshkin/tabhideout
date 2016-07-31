@@ -1,22 +1,18 @@
 export default function (state = [], action) {
     switch (action.type) {
         case 'TAB_ADD':
-            return [...state,
-                Object.assign({}, createFromTab(action.tab))
-            ];
+            return createTab(state, action.tab);
         case 'TAB_DELETE':
             return deleteTab(state, action.id);
         case 'LINK_ADD':
-            return [...state,
-                Object.assign({}, createFromLink(action.link))
-            ];
+            return createTab(state, action.link);
         default: 
             return state;
     }
 }
 
 function deleteTab(tabs, id) {
-    var result;
+    let result;
 
     if (Array.isArray(id)){
         result = tabs.filter(tab => id.indexOf(tab.id) === -1);
@@ -27,22 +23,24 @@ function deleteTab(tabs, id) {
     return result;
 }
 
-function createFromTab(tabObject) {
-    return {
-        id: guid(),
-        url: tabObject.url,
-        favicon: tabObject.favIconUrl,
-        title: tabObject.title
-    };
-}
+function createTab(state, tabObject) {
+    let urls = state.map(tab => tab.url);
+    let result;
 
-function createFromLink(linkObj) {
-    return {
-        id: guid(),
-        url: linkObj.url,
-        favicon: linkObj.favicon,
-        title: linkObj.title
-    };
+    if (urls.indexOf(tabObject.url) === -1 && tabObject.url.indexOf("chrome://") === -1) {
+        result = [...state,
+            Object.assign({}, {
+                id: guid(),
+                url: tabObject.url,
+                favicon: tabObject.favIconUrl || tabObject.favicon,
+                title: tabObject.title
+            })
+        ];
+    } else {
+        result = state;
+    }
+
+    return result;
 }
 
 function guid() {

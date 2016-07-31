@@ -6,7 +6,7 @@ function SearchBox(props) {
             <input
                 placeholder="Search..."
                 className="filter"
-                type="text" 
+                type="search"
                 value={props.filter}
                 onChange={props.onFilterChange}/>
         </form>

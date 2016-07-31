@@ -9,7 +9,8 @@ class Tabs extends Component {
 
         this.state = {
             prompt: false,
-            promptType: "none"
+            promptType: "none",
+            filter: props.filter
         };
         
         this.deleteTab = this.deleteTab.bind(this);
@@ -65,6 +66,8 @@ class Tabs extends Component {
             type: "TAB_DELETE",
             id
         });
+
+        this.hidePrompt();
     }
     
     openAllTabs(tabs) {
@@ -76,6 +79,7 @@ class Tabs extends Component {
         });
 
         this.deleteAllTabs(tabs);
+        this.hidePrompt();
     }
 
     render() {
@@ -88,7 +92,16 @@ class Tabs extends Component {
             tabList = tabList.filter( tab => {
                 let filter = this.props.filter.toLowerCase();
                 let title = tab.title.toLowerCase();
-                return ~title.indexOf(filter);
+                let url = tab.url.toLowerCase();
+                return ~title.indexOf(filter) || ~url.indexOf(filter);
+            });
+        }
+
+        if (this.state.filter !== this.props.filter) {
+            this.setState({
+                filter: this.props.filter,
+                prompt: false,
+                promptType: "none"
             });
         }
 
