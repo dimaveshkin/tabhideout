@@ -1,0 +1,6 @@
+1. Don't remove empty pages.
+2. Add animations.
+3. Redesign delete action.
+4. store data in Chrome Sync
+5. Update icon when page was added (or other kind of notification).
+6. Add config.
