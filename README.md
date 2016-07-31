@@ -2,7 +2,7 @@
 
 ##Why do i need this?
 
-Probably, you had a situation, when your chrome had over9000 tabs, bul all of them seemed to be useful?
+Probably, you had a situation, when your chrome had over9000 tabs, but all of them seemed to be useful?
 Free your RAM from all this unnecessary (only now, probably) tabs, opened simultaneously. Hide them all into TabHideOut.
 
 ##How to use?
