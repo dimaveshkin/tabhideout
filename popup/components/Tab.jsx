@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { parse } from "url";
 
 class Tab extends Component {
     constructor(props) {
@@ -42,17 +43,14 @@ class Tab extends Component {
             return;
         }
 
-        chrome.tabs.create({
-            url: this.props.tab.url,
-            active: true
-        });
-
-        this.props.deleteTab(this.props.tab.id);
+        this.props.openTab(this.props.tab.url, this.props.tab.id);
     }
 
     render() {
         let tab = this.props.tab;
-        let hasDetails = !!this.props.tab.desc;
+        let hasDetails = !!tab.desc;
+        let hostName = parse(tab.url).hostname;
+        let titleText = `${tab.title} (${hostName})`;
 
         return (
             <li>
@@ -65,7 +63,9 @@ class Tab extends Component {
                                 </td>
                             }
                             <td className="title">
-                                <span onClick={this.openTab}>{tab.title}</span>
+                                <span onClick={this.openTab} title={titleText}>{tab.title}
+                                    <span className="hostname"> ({hostName})</span>
+                                </span>
                             </td>
                             { hasDetails &&
                                 <td className="details-icon" onClick={this.handleDetails}>i</td>

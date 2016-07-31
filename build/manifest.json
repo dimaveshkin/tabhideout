@@ -10,11 +10,12 @@
   "permissions": [
     "tabs",
     "contextMenus",
-    "http://*/*"
+    "http://*/*",
+    "https://*/*"
   ],
   "content_scripts": [
     {
-      "matches": ["http://*/*"],
+      "matches": ["http://*/*","https://*/*"],
       "js": ["content.js"]
     }
   ],

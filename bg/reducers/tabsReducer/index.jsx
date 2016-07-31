@@ -1,7 +1,6 @@
 export default function (state = [], action) {
     switch (action.type) {
         case 'TAB_ADD':
-            console.log(action);
             return [...state,
                 Object.assign({}, createFromTab(action.tab))
             ];
@@ -17,7 +16,15 @@ export default function (state = [], action) {
 }
 
 function deleteTab(tabs, id) {
-    return tabs.filter(tab => tab.id !== id)
+    var result;
+
+    if (Array.isArray(id)){
+        result = tabs.filter(tab => id.indexOf(tab.id) === -1);
+    } else {
+        result = tabs.filter(tab => tab.id !== id);
+    }
+
+    return result;
 }
 
 function createFromTab(tabObject) {
@@ -26,6 +33,15 @@ function createFromTab(tabObject) {
         url: tabObject.url,
         favicon: tabObject.favIconUrl,
         title: tabObject.title
+    };
+}
+
+function createFromLink(linkObj) {
+    return {
+        id: guid(),
+        url: linkObj.url,
+        favicon: linkObj.favicon,
+        title: linkObj.title
     };
 }
 

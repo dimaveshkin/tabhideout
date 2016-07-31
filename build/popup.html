@@ -19,10 +19,11 @@
 
         .tab-row td {
             vertical-align: middle;
+            padding: 5px 3px;
         }
 
         .favicon {
-            width: 20px;
+            width: 25px;
         }
 
         .favicon img {
@@ -32,7 +33,10 @@
 
         .title {
             font-size: 12px;
-            padding: 5px;
+            max-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .title:hover {
@@ -73,13 +77,28 @@
             background: #eee;
         }
 
-        .tab-description {
+        .note {
+            font-size: 12px;
+            background: #eee;
+            padding: 5px;
+            margin-top: 5px;
+        }
 
+        .beginner-guide {
+            padding: 15px 0;
+            text-align: center;
+            font-size: 15px;
+            color: #aaa;
         }
 
         .filter {
             padding: 3px;
             width: 100%;
+            outline: none;;
+            border-left: none;
+            border-right: none;
+            border-top: 1px solid black;
+            border-bottom: 1px solid black;
         }
 
         .filter-form {
@@ -102,6 +121,55 @@
         .app-header {
             font-size: 16px;
             margin-bottom: 5px;
+        }
+
+        .prompt {
+            padding: 5px 0;
+            font-size: 12px;
+        }
+
+        .prompt span + span {
+            margin-left: 5px;
+        }
+
+        .accept-open:hover {
+            color: red;
+        }
+
+        .accept-delete:hover {
+            color: red;
+        }
+
+        .close-prompt:hover {
+            color: lightskyblue;
+        }
+
+        .open-all, .delete-all {
+            font-weight: bold;
+        }
+
+        .controls {
+            padding: 5px 0;
+        }
+
+        .controls > span + span {
+            margin-left: 10px;
+        }
+
+        .open-all:hover, .delete-all:hover {
+            color: lightskyblue;
+        }
+
+        .open-all,
+        .delete-all,
+        .accept-delete,
+        .accept-open,
+        .close-prompt {
+            cursor: pointer;
+        }
+
+        .hostname {
+            color: #bbb;
         }
     </style>
 </head>

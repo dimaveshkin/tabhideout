@@ -5,8 +5,10 @@ const addCurrentTab = (orginalAction) => {
                 type: 'TAB_ADD',
                 tab: tab[0]
             });
-            
-            chrome.tabs.remove(tab[0].id);
+
+            setTimeout(function () {
+                chrome.tabs.remove(tab[0].id);
+            }, 0);
         });
     }
 };
