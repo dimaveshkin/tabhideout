@@ -5,3 +5,4 @@
 5. Update icon when page was added (or other kind of notification).
 6. Add config.
 7. Unescape title in links
+8. Track unused tabs and push a notification
