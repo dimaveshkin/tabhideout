@@ -1,26 +1,38 @@
 import { createStore, applyMiddleware } from "redux";
 import { wrapStore, alias } from "react-chrome-redux";
+import deepEqual from "deep-equal";
 import ReduxThunk  from "redux-thunk";
 import $  from "jquery";
 import rootReducer from "./reducers/rootReducer";
 import aliases from "./aliases";
 
 let store;
+let prevState;
 let ctxPageId;
 let ctxLinkId;
 
-store = createStore(rootReducer,
-applyMiddleware(
-    alias(aliases),
-    ReduxThunk
-));
+chrome.storage.sync.get("store", startApp);
 
-wrapStore(store, {
-    portName: "TAB"
-});
+function startApp(initialData) {
+    store = createStore(rootReducer,
+        initialData.store,
+        applyMiddleware(
+            alias(aliases),
+            ReduxThunk
+        ));
+
+    wrapStore(store, {
+        portName: "TAB"
+    });
+
+    if (initialData.store) {
+        setBadgeCount(initialData.store.tabs.length);
+    }
+}
 
 chrome.runtime.onInstalled.addListener(function() {
     store.subscribe(onStoreChange);
+    chrome.storage.onChanged.addListener(onStorageChange)
 
     ctxPageId = chrome.contextMenus.create({
         title: "Hide this page to TabHideOut!",
@@ -41,11 +53,41 @@ function onStoreChange() {
     let state = store.getState();
     let text = "";
 
-    if (state.tabs.length) {
-        text = state.tabs.length.toString();
+    if (!deepEqual(state, prevState)) {
+        prevState = state;
+        store.dispatch((dispatch, getState) => {
+            chrome.storage.sync.set({store: getState()}, () => {
+                dispatch({
+                    type: "SEND_DATA_TO_STORAGE"
+                });
+            })
+        });
+        return;
+    }
+
+    setBadgeCount(state.tabs.length);
+}
+
+function setBadgeCount(length) {
+    let text = "";
+
+    if (length) {
+        text = length.toString();
     }
 
     chrome.browserAction.setBadgeText({text});
+}
+
+function onStorageChange(changes) {
+    if (changes.store){
+        if (!deepEqual(changes.store.newValue, prevState)) {
+            prevState = changes.store.newValue;
+            store.dispatch({
+                type: "APPLY_NEW_STATE",
+                state: changes.store.newValue
+            });
+        }
+    }
 }
 
 function handleContextMenuClick(info, tab) {
