@@ -13,12 +13,17 @@ class Tab extends Component {
         this.handleDetails = this.handleDetails.bind(this);
         this.handlePromptClose = this.handlePromptClose.bind(this);
         this.openTab = this.openTab.bind(this);
+        this.imageError = this.imageError.bind(this);
     }
 
     handleDetails() {
         this.setState({
             showDetails: !this.state.showDetails
         })
+    }
+
+    imageError(e) {
+        e.target.src = "https://www.google.com/s2/favicons?domain=insane_words_to_get_default_icon";
     }
 
     handleClose() {
@@ -70,7 +75,10 @@ class Tab extends Component {
                         <tr className={this.state.isDeletePrompt ? "deleting-row tab-row" : "tab-row"}>
                             { tab.favicon &&
                                 <td className="favicon">
-                                    <img src={tab.favicon} alt={titleText}/>
+                                    <img
+                                        src={tab.favicon}
+                                        alt={titleText}
+                                        onError={this.imageError}/>
                                 </td>
                             }
                             <td className="title">

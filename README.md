@@ -33,7 +33,8 @@ After installation, you'll get several opportunities to hide your tab. <br/>
 
 ##Notes
 
-Now pages are hidden only while browser is open. When you close it, you will lost all hidden tabs. <br/>
-Open them, before you close Chrome, if you want to save them for later.
+~~Now pages are hidden only while browser is open. When you close it, you will lost all hidden tabs. <br/>
+Open them, before you close Chrome, if you want to save them for later.~~
+Now you can store your hidden tabs in browser localy. They'll be still accessible, even if you re-open your browser or reload computer.
 
 

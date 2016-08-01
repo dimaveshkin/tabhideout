@@ -148,7 +148,7 @@ class Tabs extends Component {
                 <ul className="tabs-list">
                     {tabList}
                 </ul>
-                <p className="note">Note: If you close the browser, tabs will be removed.</p>
+                <p className="note">Note: If you close your browser, tabs will be saved.</p>
             </div>
         );
     }
