@@ -28,12 +28,12 @@ function startApp(initialData) {
     if (initialData.store) {
         setBadgeCount(initialData.store.tabs.length);
     }
+
+    store.subscribe(onStoreChange);
+    chrome.storage.onChanged.addListener(onStorageChange)
 }
 
 chrome.runtime.onInstalled.addListener(function() {
-    store.subscribe(onStoreChange);
-    chrome.storage.onChanged.addListener(onStorageChange)
-
     ctxPageId = chrome.contextMenus.create({
         title: "Hide this page to TabHideOut!",
         contexts: ["page"]
@@ -51,7 +51,6 @@ chrome.runtime.onInstalled.addListener(function() {
 
 function onStoreChange() {
     let state = store.getState();
-    let text = "";
 
     if (!deepEqual(state, prevState)) {
         prevState = state;
