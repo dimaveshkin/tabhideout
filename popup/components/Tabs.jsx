@@ -59,12 +59,10 @@ class Tabs extends Component {
         this.deleteTab(id);
     }
     
-    deleteAllTabs(tabs) {
-        let id = tabs.map(tab => tab.id);
+    deleteAllTabs() {
 
         this.props.dispatch({
-            type: "TAB_DELETE",
-            id
+            type: "TAB_DELETE_ALL"
         });
 
         this.hidePrompt();

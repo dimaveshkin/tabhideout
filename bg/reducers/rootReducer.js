@@ -1,11 +1,11 @@
-import tabs from "./tabsReducer";
+import tabs from "./tabsReducer/index";
 
 const initialState = {
     tabs: []
 };
 
 export default function (state = initialState, action) {
-    applyNewState(state, action);
+    state = applyNewState(state, action);
 
     return {
         tabs: tabs(state.tabs, action)

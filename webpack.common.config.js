@@ -11,7 +11,7 @@ function getDefaultConfig(options) {
         module: {
             loaders: [
                 {
-                    test: /\.jsx$/,
+                    test: /\.jsx?$/,
                     loader: "babel-loader"
                 }
             ]

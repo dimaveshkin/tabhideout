@@ -4,6 +4,8 @@ export default function (state = [], action) {
             return createTab(state, action.tab);
         case 'TAB_DELETE':
             return deleteTab(state, action.id);
+        case 'TAB_DELETE_ALL':
+            return [];
         case 'LINK_ADD':
             return createTab(state, action.link);
         default: 
@@ -12,15 +14,7 @@ export default function (state = [], action) {
 }
 
 function deleteTab(tabs, id) {
-    let result;
-
-    if (Array.isArray(id)){
-        result = tabs.filter(tab => id.indexOf(tab.id) === -1);
-    } else {
-        result = tabs.filter(tab => tab.id !== id);
-    }
-
-    return result;
+    return tabs.filter(tab => tab.id !== id);
 }
 
 function createTab(state, tabObject) {
